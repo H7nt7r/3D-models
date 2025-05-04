@@ -9,5 +9,6 @@ router.get('/:id', modelsController.getModelById);
 router.put('/:id', validateModel, modelsController.updateModel);
 router.delete('/:id', modelsController.deleteModel);
 router.get('/', modelsController.getAllModels);
+router.get('/download/:filename', modelsController.downloadModel);
 
 module.exports = router;

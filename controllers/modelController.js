@@ -76,6 +76,12 @@ const getAllModels = async (req, res, next) => {
   }
 };
 
+const downloadModel = async (req, res) => {
+  const fileName = req.params.filename;
+  const filePath = path.join(__dirname, 'models', fileName);
+  res.download(filePath);
+}
+
 
 module.exports = {
   createModel,
@@ -83,4 +89,5 @@ module.exports = {
   updateModel,
   deleteModel,
   getAllModels,
+  downloadModel,
 };

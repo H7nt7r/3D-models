@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const cors = require ('cors');
 const app = express();
 app.use(cors());
@@ -55,6 +56,9 @@ app.use('/categories/:id', categoryrout);
 app.use('/model_users', model_userrout);  
 app.use('/model_users/:id', model_userrout);
 
+app.use('/uploads', express.static(path.join(__dirname, '3Dmodels')));
+app.use('/api', require('./routes/upload'));
+
 const { Sequelize } = require('sequelize');
 const sequelize = new Sequelize('3D-models', 'postgres', '135135', {
   host: 'localhost',
@@ -66,27 +70,27 @@ const PORT = 3001;
 app.use(errorHandler);
 
 app.use('/documents', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use('/3Dmodels', express.static(path.join(__dirname, '3Dmodels')));
 
-// app.use((req, res, next) => {
-//   const err = new Error('Неверный запрос');
-//   err.status = 404;
-//   next(err);
-// });
-// app.use((err, req, res, next) => {
-//   const error = {
-//       success: false,
-//       status: err.status ||  404,
-//       message: err.message || 'Error'
-//   };
+app.use((req, res, next) => {
+  const err = new Error('Неверный запрос');
+  err.status = 404;
+  next(err);
+});
+app.use((err, req, res, next) => {
+  const error = {
+      success: false,
+      status: err.status ||  404,
+      message: err.message || 'Error'
+  };
 
-//   //mongoLogger.storeError(error);
-//   //console.log('Error was stored');
+  res.status(error.status).json({
+      message: error.message,
+      status: error.status
+  });
+});
 
-//   res.status(error.status).json({
-//       message: error.message,
-//       status: error.status
-//   });
-// });
+
 
 const server = app.listen(PORT, () => {
   console.log(`Сервер запущен на порту ${PORT}`);
