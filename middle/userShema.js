@@ -18,6 +18,18 @@ const validateUser = (UserSchema) => (req,res,next) => {
     }
 }
 
+const validateUserUpdate = (req, res, next) => {
+  const schema = Joi.object({
+    email: Joi.string().email().required(),
+    nickname: Joi.string().required()
+  });
 
+  const { error } = schema.validate(req.body);
+  if (error) return res.status(400).json({ message: error.details[0].message });
+  next();
+};
 
-exports.validateUser = validateUser(UserSchema);
+module.exports = {
+  validateUser,
+  validateUserUpdate
+};

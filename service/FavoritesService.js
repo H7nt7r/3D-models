@@ -24,10 +24,16 @@ const getAllFavorites = async () => {
   return favorite;
 };
 
+const getFavoritesByUserId = async (userId) => {
+  const favorites = await favoriteRepository.getFavoritesByUserId(userId);
+  return favorites;
+};
+
 module.exports = {
   createFavorite,
   getFavoriteById,
   updateFavorite,
   deleteFavorite,
   getAllFavorites,
+	getFavoritesByUserId,
 };

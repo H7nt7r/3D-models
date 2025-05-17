@@ -68,7 +68,7 @@
     "/auth/login": {
       "post": {
         "summary": "Авторизация пользователя",
-        "description": "Логин для существующего пользователя с использованием email и пароля.",
+        "description": "Логин для существующего пользователя с использованием логина и пароля.",
         "requestBody": {
           "required": true,
           "content": {
@@ -76,7 +76,7 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "email": {
+                  "login": {
                     "type": "string"
                   },
                   "password": {
@@ -110,7 +110,7 @@
             }
           },
           "400": {
-            "description": "Неверный email или пароль"
+            "description": "Неверный логин или пароль"
           }
         }
       }

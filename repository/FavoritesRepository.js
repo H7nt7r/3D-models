@@ -1,11 +1,10 @@
-const Favorite = require('../models/Favorites');
+const { sequelize, Model, Favorite, User } = require("../models/relations");
 
-const { Sequelize } = require('sequelize');
+const { Sequelize } = require("sequelize");
 
-
-const createFavorite = async(favoriteData) => {
-	const favorite = await Favorite.create(favoriteData);
-	return favorite;
+const createFavorite = async (favoriteData) => {
+  const favorite = await Favorite.create(favoriteData);
+  return favorite;
 };
 
 const getFavoriteById = async (favoriteId) => {
@@ -29,10 +28,43 @@ const getAllFavorites = async () => {
   return favorite;
 };
 
+const getFavoritesByUserId = async (userId) => {
+  const favorites = await Favorite.findAll({
+    where: { user_id: userId },
+    include: [
+      {
+        model: Model,
+        attributes: {
+          include: [
+            [
+              sequelize.literal(`(
+                SELECT AVG(r.rating)
+                FROM ratings AS r
+                WHERE r.model_id = "model"."id"
+              )`),
+              "averageRating",
+            ],
+          ],
+        },
+        include: [
+          {
+            model: User,
+            through: { attributes: [] },
+            attributes: ["nickname"],
+          },
+        ],
+      },
+    ],
+  });
+
+  return favorites;
+};
+
 module.exports = {
   createFavorite,
   getFavoriteById,
   updateFavorite,
   deleteFavorite,
   getAllFavorites,
+  getFavoritesByUserId,
 };

@@ -24,10 +24,15 @@ const getAllUsers = async () => {
   return user;
 };
 
+const getUserProfile = async (userId) => {
+  return await userRepository.getUserProfile(userId);
+};
+
 module.exports = {
   createUser,
   getUserById,
   updateUser,
   deleteUser,
   getAllUsers,
+	getUserProfile,
 };

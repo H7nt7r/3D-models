@@ -1,6 +1,7 @@
-const User = require('../models/Users');
+// const User = require('../models/Users');
 const User_type = require('../models/User_types');
 const Type = require('../models/Types');
+const { sequelize, Model, User, Model_user } = require('../models/relations');
 
 const createUser = async(userData) => {
   const user = await User.create(userData);
@@ -43,10 +44,47 @@ const getAllUsers = async () => {
   return user;
 };
 
+const getUserProfile = async (userId) => {
+  const user = await User.findByPk(userId, {
+    attributes: ['id', 'nickname', 'login', 'email'],
+    include: [
+      {
+        model: Model,
+        through: {
+          model: Model_user,
+          attributes: [],
+        },
+        attributes: {
+          include: [
+            [
+              sequelize.literal(`(
+                SELECT AVG(r.rating)
+                FROM ratings AS r
+                WHERE r.model_id = "models"."id"
+              )`),
+              "averageRating",
+            ],
+          ],
+        },
+        include: [
+          {
+            model: User,
+            through: { attributes: [] },
+            attributes: ["nickname"],
+          },
+        ],
+      },
+    ],
+  });
+
+  return user;
+};
+
 module.exports = {
   createUser,
   getUserById,
   updateUser,
   deleteUser,
   getAllUsers,
+	getUserProfile,
 };

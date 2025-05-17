@@ -91,6 +91,48 @@ const getAllUsers = async (req, res, next) => {
   }
 };
 
+const getUserProfile = async (req, res, next) => {
+  try {
+    const token = req.headers.authorization?.split(' ')[1];
+    if (!token) throw new Error('Токен не предоставлен');
+
+    const decoded = jwt.verify(token, '123');
+    const userId = decoded.id;
+
+    const profileData = await userService.getUserProfile(userId);
+
+    if (!profileData) {
+      return res.status(404).json({ message: 'Пользователь не найден' });
+    }
+
+    res.json(profileData);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const updateOwnProfile = async (req, res, next) => {
+  try {
+    const token = req.headers.authorization?.split(' ')[1];
+    if (!token) {
+      return res.status(401).json({ message: 'Токен не предоставлен' });
+    }
+
+    const decoded = jwt.verify(token, '123');
+    const userId = decoded.id;
+
+    const userData = req.body;
+    const user = await userService.updateUser(userId, userData);
+
+    if (!user) {
+      return res.status(404).json({ message: 'Пользователь не найден' });
+    }
+
+    res.json(user);
+  } catch (error) {
+    next(error);
+  }
+};
 
 module.exports = {
   createUser,
@@ -99,5 +141,6 @@ module.exports = {
   updateUser,
   deleteUser,
   getAllUsers,
-
+  getUserProfile,
+	updateOwnProfile,
 };

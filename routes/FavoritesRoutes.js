@@ -9,5 +9,6 @@ router.get('/:id', favoritesController.getFavoriteById);
 router.put('/:id', validateFavorite, favoritesController.updateFavorite);
 router.delete('/:id', favoritesController.deleteFavorite);
 router.get('/', favoritesController.getAllFavorites);
+router.get('/user/:userId', favoritesController.getFavoritesByUserId);
 
 module.exports = router;
