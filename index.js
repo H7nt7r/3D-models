@@ -57,7 +57,7 @@ app.use('/model_users', model_userrout);
 app.use('/model_users/:id', model_userrout);
 
 app.use('/uploads', express.static(path.join(__dirname, '3Dmodels')));
-app.use('/images', express.static(path.join(__dirname, 'images')));
+app.use('/assets', express.static(path.join(__dirname, 'assets')));
 app.use('/api', require('./routes/upload'));
 
 const { Sequelize } = require('sequelize');

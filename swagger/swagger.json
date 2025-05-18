@@ -1,18 +1,18 @@
 {
-    "openapi": "3.0.0",
-    "info": {
-      "title": "User API",
-      "description": "API for managing users",
-      "version": "1.0.0"
-    },
-    "servers": [
-      {
-        "url": "http://localhost:3001"
-      }
-    ],
-    
-    "paths": {
-      "/auth/register": {
+  "openapi": "3.0.0",
+  "info": {
+    "title": "User API",
+    "description": "API for managing users",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3001"
+    }
+  ],
+
+  "paths": {
+    "/auth/register": {
       "post": {
         "summary": "Регистрация нового пользователя",
         "description": "Регистрация нового пользователя с указанием email, пароля и имени.",
@@ -115,1071 +115,1071 @@
         }
       }
     },
-        "/users": {
-          "get": {
-            "summary": "Get all users",
-            "responses": {
-              "200": {
-                "description": "A list of users",
-                "content": {
-                  "application/json": {
-                    "schema": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/User"
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "post": {
-            "summary": "Create a new user",
-            "requestBody": {
-              "required": true,
-              "content": {
-                "application/json": {
-                  "schema": {
+    "/users": {
+      "get": {
+        "summary": "Get all users",
+        "responses": {
+          "200": {
+            "description": "A list of users",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
                     "$ref": "#/components/schemas/User"
-                  }
-                }
-              }
-            },
-            "responses": {
-              "200": {
-                "description": "The newly created user",
-                "content": {
-                  "application/json": {
-                    "schema": {
-                      "$ref": "#/components/schemas/User"
-                    }
                   }
                 }
               }
             }
           }
-        },
-        "/users/{id}": {
-          "get": {
-            "summary": "Get user by ID",
-            "parameters": [
-              {
-                "name": "id",
-                "in": "path",
-                "required": true,
-                "schema": {
-                  "type": "integer"
-                }
-              }
-            ],
-            "responses": {
-              "200": {
-                "description": "The user",
-                "content": {
-                  "application/json": {
-                    "schema": {
-                      "$ref": "#/components/schemas/User"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "put": {
-            "summary": "Update user by ID",
-            "parameters": [
-              {
-                "name": "id",
-                "in": "path",
-                "required": true,
-                "schema": {
-                  "type": "integer"
-                }
-              }
-            ],
-            "requestBody": {
-              "required": true,
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/User"
-                  }
-                }
-              }
-            },
-            "responses": {
-              "200": {
-                "description": "The updated user",
-                "content": {
-                  "application/json": {
-                    "schema": {
-                      "$ref": "#/components/schemas/User"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "delete": {
-            "summary": "Delete user by ID",
-            "parameters": [
-              {
-                "name": "id",
-                "in": "path",
-                "required": true,
-                "schema": {
-                  "type": "integer"
-                }
-              }
-            ],
-            "responses": {
-              "200": {
-                "description": "The deleted user",
-                "content": {
-                  "application/json": {
-                    "schema": {
-                      "$ref": "#/components/schemas/User"
-                    }
-                  }
-                }
+        }
+      },
+      "post": {
+        "summary": "Create a new user",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
               }
             }
           }
         },
-        
-        "/models": {
-          "get": {
-            "summary": "Get all models",
-            "responses": {
-              "200": {
-                "description": "A list of models",
-                "content": {
-                  "application/json": {
-                    "schema": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Model"
-                      }
-                    }
-                  }
+        "responses": {
+          "200": {
+            "description": "The newly created user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
                 }
               }
             }
-          },
-          "post": {
-            "summary": "Create a new model",
-            "requestBody": {
-              "required": true,
-              "content": {
-                "application/json": {
-                  "schema": {
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "summary": "Get user by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update user by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The updated user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete user by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The deleted user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/models": {
+      "get": {
+        "summary": "Get all models",
+        "responses": {
+          "200": {
+            "description": "A list of models",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
                     "$ref": "#/components/schemas/Model"
                   }
                 }
               }
-            },
-            "responses": {
-              "200": {
-                "description": "The newly created model",
-                "content": {
-                  "application/json": {
-                    "schema": {
-                      "$ref": "#/components/schemas/Model"
-                    }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new model",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Model"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The newly created model",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Model"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/models/{id}": {
+      "get": {
+        "summary": "Get model by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The model",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Model"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update model by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Model"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The updated model",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Model"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete model by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The deleted model",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Model"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user_types": {
+      "get": {
+        "summary": "Get all user types",
+        "responses": {
+          "200": {
+            "description": "A list of user types",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UserType"
                   }
                 }
               }
             }
           }
+        }
+      },
+      "post": {
+        "summary": "Create a new user type",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserType"
+              }
+            }
+          }
         },
-          "/models/{id}": {
-            "get": {
-              "summary": "Get model by ID",
-              "parameters": [
-                {
-                  "name": "id",
-                  "in": "path",
-                  "required": true,
-                  "schema": {
-                    "type": "integer"
-                  }
-                }
-              ],
-              "responses": {
-                "200": {
-                  "description": "The model",
-                  "content": {
-                    "application/json": {
-                      "schema": {
-                        "$ref": "#/components/schemas/Model"
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "put": {
-              "summary": "Update model by ID",
-              "parameters": [
-                {
-                  "name": "id",
-                  "in": "path",
-                  "required": true,
-                  "schema": {
-                    "type": "integer"
-                  }
-                }
-              ],
-              "requestBody": {
-                "required": true,
-                "content": {
-                  "application/json": {
-                    "schema": {
-                      "$ref": "#/components/schemas/Model"
-                    }
-                  }
-                }
-              },
-              "responses": {
-                "200": {
-                  "description": "The updated model",
-                  "content": {
-                    "application/json": {
-                      "schema": {
-                        "$ref": "#/components/schemas/Model"
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "delete": {
-              "summary": "Delete model by ID",
-              "parameters": [
-                {
-                  "name": "id",
-                  "in": "path",
-                  "required": true,
-                  "schema": {
-                    "type": "integer"
-                  }
-                }
-              ],
-              "responses": {
-                "200": {
-                  "description": "The deleted model",
-                  "content": {
-                    "application/json": {
-                      "schema": {
-                        "$ref": "#/components/schemas/Model"
-                      }
-                    }
-                  }
+        "responses": {
+          "200": {
+            "description": "The newly created user type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserType"
                 }
               }
             }
-          },
-          "/user_types": {
-            "get": {
-              "summary": "Get all user types",
-              "responses": {
-                "200": {
-                  "description": "A list of user types",
-                  "content": {
-                    "application/json": {
-                      "schema": {
-                        "type": "array",
-                        "items": {
-                          "$ref": "#/components/schemas/UserType"
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "post": {
-              "summary": "Create a new user type",
-              "requestBody": {
-                "required": true,
-                "content": {
-                  "application/json": {
-                    "schema": {
-                      "$ref": "#/components/schemas/UserType"
-                    }
-                  }
-                }
-              },
-              "responses": {
-                "200": {
-                  "description": "The newly created user type",
-                  "content": {
-                    "application/json": {
-                      "schema": {
-                        "$ref": "#/components/schemas/UserType"
-                      }
-                    }
-                  }
+          }
+        }
+      }
+    },
+    "/user_types/{id}": {
+      "get": {
+        "summary": "Get user type by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The user type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserType"
                 }
               }
             }
-          },
-          "/user_types/{id}": {
-            "get": {
-              "summary": "Get user type by ID",
-              "parameters": [
-                {
-                  "name": "id",
-                  "in": "path",
-                  "required": true,
-                  "schema": {
-                    "type": "integer"
-                  }
-                }
-              ],
-              "responses": {
-                "200": {
-                  "description": "The user type",
-                  "content": {
-                    "application/json": {
-                      "schema": {
-                        "$ref": "#/components/schemas/UserType"
-                      }
-                    }
-                  }
-                }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update user type by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserType"
               }
-            },
-            "put": {
-              "summary": "Update user type by ID",
-              "parameters": [
-                {
-                  "name": "id",
-                  "in": "path",
-                  "required": true,
-                  "schema": {
-                    "type": "integer"
-                  }
-                }
-              ],
-              "requestBody": {
-                "required": true,
-                "content": {
-                  "application/json": {
-                    "schema": {
-                      "$ref": "#/components/schemas/UserType"
-                    }
-                  }
-                }
-              },
-              "responses": {
-                "200": {
-                  "description": "The updated user type",
-                  "content": {
-                    "application/json": {
-                      "schema": {
-                        "$ref": "#/components/schemas/UserType"
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "delete": {
-              "summary": "Delete user type by ID",
-              "parameters": [
-                {
-                  "name": "id",
-                  "in": "path",
-                  "required": true,
-                  "schema": {
-                    "type": "integer"
-                  }
-                }
-              ],
-              "responses": {
-                "200": {
-                  "description": "The deleted user type",
-                  "content": {
-                    "application/json": {
-                      "schema": {
-                        "$ref": "#/components/schemas/UserType"
-                      }
-                    }
-                  }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The updated user type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserType"
                 }
               }
             }
-          },
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete user type by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The deleted user type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserType"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
 
-          "/ratings": {
-            "get": {
-              "summary": "Get all ratings",
-              "responses": {
-                "200": {
-                  "description": "A list of ratings",
-                  "content": {
-                    "application/json": {
-                      "schema": {
-                        "type": "array",
-                        "items": {
-                          "$ref": "#/components/schemas/Rating"
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "post": {
-              "summary": "Create a new rating",
-              "requestBody": {
-                "required": true,
-                "content": {
-                  "application/json": {
-                    "schema": {
-                      "$ref": "#/components/schemas/Rating"
-                    }
-                  }
-                }
-              },
-              "responses": {
-                "200": {
-                  "description": "The newly created rating",
-                  "content": {
-                    "application/json": {
-                      "schema": {
-                        "$ref": "#/components/schemas/Rating"
-                      }
-                    }
+    "/ratings": {
+      "get": {
+        "summary": "Get all ratings",
+        "responses": {
+          "200": {
+            "description": "A list of ratings",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Rating"
                   }
                 }
               }
             }
-          },
-          "/ratings/{id}": {
-            "get": {
-              "summary": "Get rating by ID",
-              "parameters": [
-                {
-                  "name": "id",
-                  "in": "path",
-                  "required": true,
-                  "schema": {
-                    "type": "integer"
-                  }
-                }
-              ],
-              "responses": {
-                "200": {
-                  "description": "The rating",
-                  "content": {
-                    "application/json": {
-                      "schema": {
-                        "$ref": "#/components/schemas/Rating"
-                      }
-                    }
-                  }
-                }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new rating",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Rating"
               }
-            },
-            "put": {
-              "summary": "Update rating by ID",
-              "parameters": [
-                {
-                  "name": "id",
-                  "in": "path",
-                  "required": true,
-                  "schema": {
-                    "type": "integer"
-                  }
-                }
-              ],
-              "requestBody": {
-                "required": true,
-                "content": {
-                  "application/json": {
-                    "schema": {
-                      "$ref": "#/components/schemas/Rating"
-                    }
-                  }
-                }
-              },
-              "responses": {
-                "200": {
-                  "description": "The updated rating",
-                  "content": {
-                    "application/json": {
-                      "schema": {
-                        "$ref": "#/components/schemas/Rating"
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "delete": {
-              "summary": "Delete rating by ID",
-              "parameters": [
-                {
-                  "name": "id",
-                  "in": "path",
-                  "required": true,
-                  "schema": {
-                    "type": "integer"
-                  }
-                }
-              ],
-              "responses": {
-                "200": {
-                  "description": "The deleted rating",
-                  "content": {
-                    "application/json": {
-                      "schema": {
-                        "$ref": "#/components/schemas/Rating"
-                      }
-                    }
-                  }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The newly created rating",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Rating"
                 }
               }
             }
-          },
+          }
+        }
+      }
+    },
+    "/ratings/{id}": {
+      "get": {
+        "summary": "Get rating by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The rating",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Rating"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update rating by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Rating"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The updated rating",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Rating"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete rating by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The deleted rating",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Rating"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
 
-          "/types": {
-            "get": {
-              "summary": "Get all types",
-              "responses": {
-                "200": {
-                  "description": "A list of types",
-                  "content": {
-                    "application/json": {
-                      "schema": {
-                        "type": "array",
-                        "items": {
-                          "$ref": "#/components/schemas/Type"
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "post": {
-              "summary": "Create a new type",
-              "requestBody": {
-                "required": true,
-                "content": {
-                  "application/json": {
-                    "schema": {
-                      "$ref": "#/components/schemas/Type"
-                    }
-                  }
-                }
-              },
-              "responses": {
-                "200": {
-                  "description": "The newly created type",
-                  "content": {
-                    "application/json": {
-                      "schema": {
-                        "$ref": "#/components/schemas/Type"
-                      }
-                    }
+    "/types": {
+      "get": {
+        "summary": "Get all types",
+        "responses": {
+          "200": {
+            "description": "A list of types",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Type"
                   }
                 }
               }
             }
-          },
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new type",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Type"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The newly created type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Type"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
 
-          "/types/{id}": {
-            "get": {
-              "summary": "Get type by ID",
-              "parameters": [
-                {
-                  "name": "id",
-                  "in": "path",
-                  "required": true,
-                  "schema": {
-                    "type": "integer"
-                  }
-                }
-              ],
-              "responses": {
-                "200": {
-                  "description": "The type",
-                  "content": {
-                    "application/json": {
-                      "schema": {
-                        "$ref": "#/components/schemas/Type"
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "put": {
-              "summary": "Update type by ID",
-              "parameters": [
-                {
-                  "name": "id",
-                  "in": "path",
-                  "required": true,
-                  "schema": {
-                    "type": "integer"
-                  }
-                }
-              ],
-              "requestBody": {
-                "required": true,
-                "content": {
-                  "application/json": {
-                    "schema": {
-                      "$ref": "#/components/schemas/Type"
-                    }
-                  }
-                }
-              },
-              "responses": {
-                "200": {
-                  "description": "The updated type",
-                  "content": {
-                    "application/json": {
-                      "schema": {
-                        "$ref": "#/components/schemas/Type"
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "delete": {
-              "summary": "Delete type by ID",
-              "parameters": [
-                {
-                  "name": "id",
-                  "in": "path",
-                  "required": true,
-                  "schema": {
-                    "type": "integer"
-                  }
-                }
-              ],
-              "responses": {
-                "200": {
-                  "description": "The deleted type",
-                  "content": {
-                    "application/json": {
-                      "schema": {
-                        "$ref": "#/components/schemas/Type"
-                      }
-                    }
-                  }
+    "/types/{id}": {
+      "get": {
+        "summary": "Get type by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Type"
                 }
               }
             }
-          },
+          }
+        }
+      },
+      "put": {
+        "summary": "Update type by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Type"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The updated type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Type"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete type by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The deleted type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Type"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
 
-          "/comments": {
-            "get": {
-              "summary": "Get all comments",
-              "responses": {
-                "200": {
-                  "description": "A list of comments",
-                  "content": {
-                    "application/json": {
-                      "schema": {
-                        "type": "array",
-                        "items": {
-                          "$ref": "#/components/schemas/Comment"
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "post": {
-              "summary": "Create a new comment",
-              "requestBody": {
-                "required": true,
-                "content": {
-                  "application/json": {
-                    "schema": {
-                      "$ref": "#/components/schemas/Comment"
-                    }
-                  }
-                }
-              },
-              "responses": {
-                "200": {
-                  "description": "The newly created comment",
-                  "content": {
-                    "application/json": {
-                      "schema": {
-                        "$ref": "#/components/schemas/Comment"
-                      }
-                    }
+    "/comments": {
+      "get": {
+        "summary": "Get all comments",
+        "responses": {
+          "200": {
+            "description": "A list of comments",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Comment"
                   }
                 }
               }
             }
-          },
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new comment",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Comment"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The newly created comment",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Comment"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
 
-          "/comments/{id}": {
-            "get": {
-              "summary": "Get comment by ID",
-              "parameters": [
-                {
-                  "name": "id",
-                  "in": "path",
-                  "required": true,
-                  "schema": {
-                    "type": "integer"
-                  }
-                }
-              ],
-              "responses": {
-                "200": {
-                  "description": "The comment",
-                  "content": {
-                    "application/json": {
-                      "schema": {
-                        "$ref": "#/components/schemas/Comment"
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "put": {
-              "summary": "Update comment by ID",
-              "parameters": [
-                {
-                  "name": "id",
-                  "in": "path",
-                  "required": true,
-                  "schema": {
-                    "type": "integer"
-                  }
-                }
-              ],
-              "requestBody": {
-                "required": true,
-                "content": {
-                  "application/json": {
-                    "schema": {
-                      "$ref": "#/components/schemas/Comment"
-                    }
-                  }
-                }
-              },
-              "responses": {
-                "200": {
-                  "description": "The updated comment",
-                  "content": {
-                    "application/json": {
-                      "schema": {
-                        "$ref": "#/components/schemas/Comment"
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "delete": {
-              "summary": "Delete comment by ID",
-              "parameters": [
-                {
-                  "name": "id",
-                  "in": "path",
-                  "required": true,
-                  "schema": {
-                    "type": "integer"
-                  }
-                }
-              ],
-              "responses": {
-                "200": {
-                  "description": "The deleted comment",
-                  "content": {
-                    "application/json": {
-                      "schema": {
-                        "$ref": "#/components/schemas/Comment"
-                      }
-                    }
-                  }
+    "/comments/{id}": {
+      "get": {
+        "summary": "Get comment by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The comment",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Comment"
                 }
               }
             }
-          },
+          }
+        }
+      },
+      "put": {
+        "summary": "Update comment by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Comment"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The updated comment",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Comment"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete comment by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The deleted comment",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Comment"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
 
-          "/categories": {
-            "get": {
-              "summary": "Get all categories",
-              "responses": {
-                "200": {
-                  "description": "A list of categories",
-                  "content": {
-                    "application/json": {
-                      "schema": {
-                        "type": "array",
-                        "items": {
-                          "$ref": "#/components/schemas/Category"
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "post": {
-              "summary": "Create a new category",
-              "requestBody": {
-                "required": true,
-                "content": {
-                  "application/json": {
-                    "schema": {
-                      "$ref": "#/components/schemas/Category"
-                    }
-                  }
-                }
-              },
-              "responses": {
-                "200": {
-                  "description": "The newly created category",
-                  "content": {
-                    "application/json": {
-                      "schema": {
-                        "$ref": "#/components/schemas/Category"
-                      }
-                    }
+    "/categories": {
+      "get": {
+        "summary": "Get all categories",
+        "responses": {
+          "200": {
+            "description": "A list of categories",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Category"
                   }
                 }
               }
             }
-          },
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new category",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Category"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The newly created category",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Category"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
 
-          "/categories/{id}": {
-            "get": {
-              "summary": "Get category by ID",
-              "parameters": [
-                {
-                  "name": "id",
-                  "in": "path",
-                  "required": true,
-                  "schema": {
-                    "type": "integer"
-                  }
-                }
-              ],
-              "responses": {
-                "200": {
-                  "description": "The category",
-                  "content": {
-                    "application/json": {
-                      "schema": {
-                        "$ref": "#/components/schemas/Category"
-                      }
-                    }
-                  }
+    "/categories/{id}": {
+      "get": {
+        "summary": "Get category by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The category",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Category"
                 }
               }
-            },
-            "put": {
-              "summary": "Update category by ID",
-              "parameters": [
-                {
-                  "name": "id",
-                  "in": "path",
-                  "required": true,
-                  "schema": {
-                    "type": "integer"
-                  }
-                }
-              ],
-              "requestBody": {
-                "required": true,
-                "content": {
-                  "application/json": {
-                    "schema": {
-                      "$ref": "#/components/schemas/Category"
-                    }
-                  }
-                }
-              },
-              "responses": {
-                "200": {
-                  "description": "The updated category",
-                  "content": {
-                    "application/json": {
-                      "schema": {
-                        "$ref": "#/components/schemas/Category"
-                      }
-                    }
-                  }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update category by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Category"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The updated category",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Category"
                 }
               }
-            },
-            "delete": {
-              "summary": "Delete category by ID",
-              "parameters": [
-                {
-                  "name": "id",
-                  "in": "path",
-                  "required": true,
-                  "schema": {
-                    "type": "integer"
-                  }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete category by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The deleted category",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Category"
                 }
-              ],
-              "responses": {
-                "200": {
-                  "description": "The deleted category",
-                  "content": {
-                    "application/json": {
-                      "schema": {
-                        "$ref": "#/components/schemas/Category"
-                      }
-                    }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/favorites": {
+      "get": {
+        "summary": "Get all favorites",
+        "responses": {
+          "200": {
+            "description": "A list of favorites",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Favorite"
                   }
                 }
               }
             }
-          },
-          "/favorites": {
-            "get": {
-              "summary": "Get all favorites",
-              "responses": {
-                "200": {
-                  "description": "A list of favorites",
-                  "content": {
-                    "application/json": {
-                      "schema": {
-                        "type": "array",
-                        "items": {
-                          "$ref": "#/components/schemas/Favorite"
-                        }
-                      }
-                    }
-                  }
-                }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new favorite",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Favorite"
               }
-            },
-            "post": {
-              "summary": "Create a new favorite",
-              "requestBody": {
-                "required": true,
-                "content": {
-                  "application/json": {
-                    "schema": {
-                      "$ref": "#/components/schemas/Favorite"
-                    }
-                  }
-                }
-              },
-              "responses": {
-                "200": {
-                  "description": "The newly created favorite",
-                  "content": {
-                    "application/json": {
-                      "schema": {
-                        "$ref": "#/components/schemas/Favorite"
-                      }
-                    }
-                  }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The newly created favorite",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Favorite"
                 }
               }
             }
-          },
-          "/favorites/{id}": {
-            "get": {
-              "summary": "Get favorite by ID",
-              "parameters": [
-                {
-                  "name": "id",
-                  "in": "path",
-                  "required": true,
-                  "schema": {
-                    "type": "integer"
-                  }
-                }
-              ],
-              "responses": {
-                "200": {
-                  "description": "The favorite",
-                  "content": {
-                    "application/json": {
-                      "schema": {
-                        "$ref": "#/components/schemas/Favorite"
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "put": {
-              "summary": "Update favorite by ID",
-              "parameters": [
-                {
-                  "name": "id",
-                  "in": "path",
-                  "required": true,
-                  "schema": {
-                    "type": "integer"
-                  }
-                }
-              ],
-              "requestBody": {
-                "required": true,
-                "content": {
-                  "application/json": {
-                    "schema": {
-                      "$ref": "#/components/schemas/Favorite"
-                    }
-                  }
-                }
-              },
-              "responses": {
-                "200": {
-                  "description": "The updated favorite",
-                  "content": {
-                    "application/json": {
-                      "schema": {
-                        "$ref": "#/components/schemas/Favorite"
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "delete": {
-              "summary": "Delete favorite by ID",
-              "parameters": [
-                {
-                  "name": "id",
-                  "in": "path",
-                  "required": true,
-                  "schema": {
-                    "type": "integer"
-                  }
-                }
-              ],
-              "responses": {
-                "200": {
-                  "description": "The deleted favorite",
-                  "content": {
-                    "application/json": {
-                      "schema": {
-                        "$ref": "#/components/schemas/Favorite"
-                      }
-                    }
-                  }
+          }
+        }
+      }
+    },
+    "/favorites/{id}": {
+      "get": {
+        "summary": "Get favorite by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The favorite",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Favorite"
                 }
               }
             }
-          },
-    
+          }
+        }
+      },
+      "put": {
+        "summary": "Update favorite by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Favorite"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The updated favorite",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Favorite"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete favorite by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The deleted favorite",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Favorite"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
     "/model_users": {
       "get": {
         "summary": "Get all model users",
@@ -1313,170 +1313,168 @@
       }
     }
   },
-  
 
-    "components": {
-        "schemas": {
-          "Comment": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "integer"
-              },
-              "author": {
-                "type": "string"
-              },
-              "comment": {
-                "type": "string"
-              },
-              "date": {
-                "type": "string",
-                "format": "date-time"
-              },
-              "user_id": {
-                "type": "integer"
-              },
-              "model_id": {
-                "type": "integer"
-              }
-            }
+  "components": {
+    "schemas": {
+      "Comment": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
           },
-          "Model_User": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "integer"
-              },
-              "model_id": {
-                "type": "integer"
-              },
-              "user_id": {
-                "type": "integer"
-              }
-            }
+          "comment": {
+            "type": "string"
           },
-          "Rating": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "integer"
-              },
-              "rating": {
-                "type": "integer"
-              },
-              "date": {
-                "type": "string",
-                "format": "date-time"
-              },
-              "user_id": {
-                "type": "integer"
-              },
-              "model_id": {
-                "type": "integer"
-              }
-            }
+          "date": {
+            "type": "string",
+            "format": "date-time"
           },
-          "Favorite": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "integer"
-              },
-              "user_id": {
-                "type": "integer"
-              },
-              "model_id": {
-                "type": "integer"
-              }
-            }
+          "user_id": {
+            "type": "integer"
           },
-          "Category": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "integer"
-              },
-              "name": {
-                "type": "string"
-              }
-            }
+          "model_id": {
+            "type": "integer"
+          }
+        }
+      },
+      "Model_User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
           },
-          "Type": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "integer"
-              },
-              "name": {
-                "type": "string"
-              }
-            }
+          "model_id": {
+            "type": "integer"
           },
-          "Model": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "integer"
-              },
-              "name": {
-                "type": "string"
-              },
-              "description":{
-                "type": "string"
-              },
-              "sizes":{
-                "type": "string"
-              },
-              "memory":{
-                "type": "string"
-              },
-              "date": {
-                "type": "string",
-                "format": "date-time"
-              },
-              "category_id": {
-                "type": "integer"
-              },
-              "preview":{
-                "type":"string"
-              }
-            }
+          "user_id": {
+            "type": "integer"
+          }
+        }
+      },
+      "Rating": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
           },
-          "User_type": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "integer"
-              },
-              "user_id": {
-                "type": "integer"
-              },
-              "type_id": {
-                "type": "integer"
-              }
-            }
+          "rating": {
+            "type": "integer"
           },
-          "User": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "integer"
-              },
-              "nickname": {
-                "type": "string"
-              },
-              "email": {
-                "type": "string"
-              },
-              "login": {
-                "type": "string"
-              },
-              "password": {
-                "type": "string"
-              }
-            }
+          "date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "user_id": {
+            "type": "integer"
+          },
+          "model_id": {
+            "type": "integer"
+          }
+        }
+      },
+      "Favorite": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "user_id": {
+            "type": "integer"
+          },
+          "model_id": {
+            "type": "integer"
+          }
+        }
+      },
+      "Category": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "Type": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "Model": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "sizes": {
+            "type": "string"
+          },
+          "memory": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "category_id": {
+            "type": "integer"
+          },
+          "preview": {
+            "type": "string"
+          },
+          "file_name": {
+            "type": "string"
+          }
+        }
+      },
+      "User_type": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "user_id": {
+            "type": "integer"
+          },
+          "type_id": {
+            "type": "integer"
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "nickname": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "login": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
           }
         }
       }
+    }
+  }
 }
-

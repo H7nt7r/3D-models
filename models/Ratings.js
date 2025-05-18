@@ -11,7 +11,7 @@ const Rating = sequelize.define('ratings', {
     autoIncrement: true
   },
   rating: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.FLOAT,
     allowNull: false,
   },
   date: {

@@ -10,10 +10,6 @@ const Comment = sequelize.define('comments', {
     primaryKey: true,
     autoIncrement: true
   },
-  author: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
   comment: {
     type: DataTypes.TEXT,
     allowNull: false,

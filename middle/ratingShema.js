@@ -1,7 +1,7 @@
 const Joi = require('joi');
 
 const RatingSchema = Joi.object({
-    rating: Joi.number().integer().required(),
+    rating: Joi.number().required(),
     date: Joi.date().required(),
     user_id: Joi.number().integer().required(),
     model_id: Joi.number().integer().required()

@@ -24,10 +24,20 @@ const getAllModels = async () => {
   return model;
 };
 
+const getOtherModelsByAuthor = async (userId, excludeModelId) => {
+  return await modelRepository.getOtherModelsByAuthor(userId, excludeModelId);
+};
+
+const getOtherModels = async (excludeModelId) => {
+  return await modelRepository.getOtherModels(excludeModelId);
+};
+
 module.exports = {
   createModel,
   getModelById,
   updateModel,
   deleteModel,
   getAllModels,
+	getOtherModels,
+	getOtherModelsByAuthor,
 };

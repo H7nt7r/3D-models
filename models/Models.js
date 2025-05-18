@@ -41,7 +41,11 @@ const Model = sequelize.define('models', {
   preview: {
     type: DataTypes.STRING,
     allowNull: true,
-  }
+  },
+	file_name: {
+		type: DataTypes.STRING,
+		allowNull: true,
+	},
 },
 {
   timestamps: false,
