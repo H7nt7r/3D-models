@@ -18,10 +18,6 @@ const Model = sequelize.define('models', {
     type: DataTypes.TEXT,
     allowNull: false,
   },
-  sizes: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
   memory: {
     type: DataTypes.STRING,
     allowNull: false,

@@ -1420,9 +1420,6 @@
           "description": {
             "type": "string"
           },
-          "sizes": {
-            "type": "string"
-          },
           "memory": {
             "type": "string"
           },

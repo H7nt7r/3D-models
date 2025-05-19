@@ -3,7 +3,6 @@ const Joi = require('joi');
 const ModelSchema = Joi.object({
   name: Joi.string().required(),
   description: Joi.string().allow(null),
-  sizes: Joi.string().allow(null),
   memory: Joi.string().allow(null),
   date: Joi.date().required(),
   category_id: Joi.number().integer().required(),
