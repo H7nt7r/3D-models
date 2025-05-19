@@ -1,4 +1,6 @@
-const commentRepository = require('../repository/CommentsRepository');
+const commentRepository = require("../repository/CommentsRepository");
+const { User } = require("../models/relations");
+const Comment = require("../models/Comments");
 
 const createComment = async (commentData) => {
   const comment = await commentRepository.createComment(commentData);
@@ -24,10 +26,33 @@ const getAllComments = async () => {
   return comment;
 };
 
+const getCommentsByModel = async (modelId, limit, offset) => {
+  const comments = await commentRepository.getCommentsByModel(
+    modelId,
+    limit,
+    offset
+  );
+  return comments;
+};
+
+const getCommentByIdWithUser = async (id) => {
+  return await Comment.findOne({
+    where: { id },
+    include: [
+      {
+        model: User,
+        attributes: ["id", "nickname"], // добавь нужные поля
+      },
+    ],
+  });
+};
+
 module.exports = {
   createComment,
   getCommentById,
   updateComment,
   deleteComment,
   getAllComments,
+  getCommentsByModel,
+  getCommentByIdWithUser,
 };

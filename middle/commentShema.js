@@ -1,9 +1,8 @@
 const Joi = require('joi');
 
 const CommentSchema = Joi.object({
-    author: Joi.string().required(),
     comment: Joi.string().required(),
-    date: Joi.date().required(),
+    date: Joi.date().optional(),
     user_id: Joi.number().integer().required(),
     model_id: Joi.number().integer().required()
 });

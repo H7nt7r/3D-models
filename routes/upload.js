@@ -1,67 +1,67 @@
-// routes/upload.js
 const express = require('express');
 const multer = require('multer');
 const path = require('path');
-const fs = require('fs');
+const Model = require('../models/Models');
+const Model_user = require('../models/Models_users');
+const authenticate = require('../error/authenicate');
 
 const router = express.Router();
 
-// Папки для сохранения
-const modelStorage = multer.diskStorage({
+// Настройка хранилища для модели и превью
+const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, '3Dmodels/');
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + '-' + file.originalname);
-  }
-});
-
-const previewStorage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'previews/');
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + '-' + file.originalname);
-  }
-});
-
-const upload = multer({ storage: multer.memoryStorage() }); // использовать память временно
-
-const fullUpload = multer({
-  storage: multer.diskStorage({
-    destination: (req, file, cb) => {
-      const folder = file.fieldname === 'model' ? 'models/' : 'previews/';
-      cb(null, folder);
-    },
-    filename: (req, file, cb) => {
-      cb(null, Date.now() + '-' + file.originalname);
+    if (file.fieldname === 'model') {
+      cb(null, path.join(__dirname, '../assets/models'));
+    } else if (file.fieldname === 'preview') {
+      cb(null, path.join(__dirname, '../assets/images'));
+    } else {
+      cb(new Error('Invalid field name'), null);
     }
-  })
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + '-' + file.originalname);
+  },
 });
 
-router.post('/upload', fullUpload.fields([
+const upload = multer({ storage });
+
+router.post('/upload', authenticate, upload.fields([
   { name: 'model', maxCount: 1 },
-  { name: 'preview', maxCount: 1 }
-]), (req, res) => {
-  const { name, description, category } = req.body;
-  const modelFile = req.files.model[0];
-  const previewFile = req.files.preview[0];
+  { name: 'preview', maxCount: 1 },
+]), async (req, res) => {
+  try {
+    const { name, description, sizes, category_id, user_id } = req.body;
+    const modelFile = req.files['model']?.[0];
+    const previewFile = req.files['preview']?.[0];
 
-  // Размер файла в мегабайтах
-  const sizeMB = (modelFile.size / (1024 * 1024)).toFixed(2);
+    if (!modelFile) {
+      return res.status(400).json({ message: 'Model file is required.' });
+    }
 
-  const newModel = {
-    name,
-    description,
-    category,
-    modelPath: `3Dmodels/${modelFile.filename}`,
-    previewPath: `previews/${previewFile.filename}`,
-    sizeMB
-  };
+    const memory = (modelFile.size / (1024 * 1024)).toFixed(2) + ' MB';
+    const date = new Date();
 
-  // Тут можно сохранить newModel в базу данных
+    const newModel = await Model.create({
+      name,
+      description,
+      sizes,
+      memory,
+      date,
+      category_id,
+      preview: previewFile ? previewFile.filename : null,
+      file_name: modelFile.filename,
+    });
 
-  res.json({ message: 'Файл успешно загружен', model: newModel });
+    await Model_user.create({
+      user_id: parseInt(user_id, 10),
+      model_id: newModel.id,
+    });
+
+    res.status(201).json({ message: 'Model uploaded successfully.', model: newModel });
+  } catch (error) {
+    console.error('Error uploading model:', error);
+    res.status(500).json({ message: 'Internal server error.' });
+  }
 });
 
 module.exports = router;

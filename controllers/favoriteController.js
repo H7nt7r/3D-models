@@ -76,6 +76,19 @@ const getAllFavorites = async (req, res, next) => {
   }
 };
 
+const getFavoritesByUserId = async (req, res, next) => {
+  try {
+    const userId = req.params.userId;
+    const favorites = await favoriteService.getFavoritesByUserId(userId);
+    if (!favorites) {
+      throw new Error('Избранное не найдено');
+    }
+    new SuccessResponse('Избранные успешно найдены').send(res, favorites);
+  } catch (error) {
+    next(error);
+  }
+};
+
 
 module.exports = {
   createFavorite,
@@ -83,4 +96,5 @@ module.exports = {
   updateFavorite,
   deleteFavorite,
   getAllFavorites,
+	getFavoritesByUserId,
 };

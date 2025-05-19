@@ -1,5 +1,5 @@
 const {DataTypes, Sequelize } = require('sequelize');
-const sequelize = new Sequelize('3D-models', 'postgres', '135135', {
+const sequelize = new Sequelize('3D-models', 'postgres', '1234', {
   host: 'localhost',
   dialect: 'postgres'
 });
@@ -16,10 +16,6 @@ const Model = sequelize.define('models', {
   },
   description: {
     type: DataTypes.TEXT,
-    allowNull: false,
-  },
-  sizes: {
-    type: DataTypes.STRING,
     allowNull: false,
   },
   memory: {
@@ -41,7 +37,11 @@ const Model = sequelize.define('models', {
   preview: {
     type: DataTypes.STRING,
     allowNull: true,
-  }
+  },
+	file_name: {
+		type: DataTypes.STRING,
+		allowNull: true,
+	},
 },
 {
   timestamps: false,

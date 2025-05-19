@@ -1,15 +1,34 @@
-const Model = require('../models/Models');
+const { sequelize, Model, User } = require("../models/relations");
 
-const { Sequelize } = require('sequelize');
+const { Sequelize } = require("sequelize");
 
-
-const createModel = async(modelData) => {
-	const model = await Model.create(modelData);
-	return model;
+const createModel = async (modelData) => {
+  const model = await Model.create(modelData);
+  return model;
 };
 
 const getModelById = async (modelId) => {
-  const model = await Model.findByPk(modelId);
+  const model = await Model.findByPk(modelId, {
+    include: [
+      {
+        model: User,
+        attributes: ["id", "nickname"],
+        through: { attributes: [] },
+      },
+    ],
+    attributes: {
+      include: [
+        [
+          sequelize.literal(`(
+            SELECT AVG(r.rating)
+            FROM ratings AS r
+            WHERE r.model_id = "models"."id"
+          )`),
+          "averageRating",
+        ],
+      ],
+    },
+  });
   return model;
 };
 
@@ -25,8 +44,89 @@ const deleteModel = async (modelId) => {
 };
 
 const getAllModels = async () => {
-  const model = await Model.findAll();
-  return model;
+  const models = await Model.findAll({
+    include: [
+      {
+        model: User,
+        attributes: ["id", "nickname"],
+        through: { attributes: [] },
+      },
+    ],
+    attributes: {
+      include: [
+        [
+          sequelize.literal(`(
+            SELECT AVG(r.rating)
+            FROM ratings AS r
+            WHERE r.model_id = "models"."id"
+          )`),
+          "averageRating",
+        ],
+      ],
+    },
+  });
+  return models;
+};
+
+const getOtherModelsByAuthor = async (userId, excludeModelId) => {
+  const models = await Model.findAll({
+    include: [
+      {
+        model: User,
+        where: { id: userId },
+        attributes: ["id", "nickname"],
+        through: { attributes: [] },
+      },
+    ],
+    where: {
+      id: { [Sequelize.Op.ne]: excludeModelId },
+    },
+    limit: 4,
+    attributes: {
+      include: [
+        [
+          sequelize.literal(`(
+          SELECT AVG(r.rating)
+          FROM ratings AS r
+          WHERE r.model_id = "models"."id"
+        )`),
+          "averageRating",
+        ],
+      ],
+    },
+  });
+
+  return models;
+};
+
+const getOtherModels = async (excludeModelId) => {
+  const models = await Model.findAll({
+    where: {
+      id: { [Sequelize.Op.ne]: excludeModelId },
+    },
+    limit: 4,
+    include: [
+      {
+        model: User,
+        attributes: ["id", "nickname"],
+        through: { attributes: [] },
+      },
+    ],
+    attributes: {
+      include: [
+        [
+          sequelize.literal(`(
+          SELECT AVG(r.rating)
+          FROM ratings AS r
+          WHERE r.model_id = "models"."id"
+        )`),
+          "averageRating",
+        ],
+      ],
+    },
+  });
+
+  return models;
 };
 
 module.exports = {
@@ -35,4 +135,6 @@ module.exports = {
   updateModel,
   deleteModel,
   getAllModels,
+  getOtherModels,
+  getOtherModelsByAuthor,
 };

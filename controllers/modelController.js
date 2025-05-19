@@ -1,5 +1,7 @@
 const modelService = require('../service/ModelsService');
 const { ErrorResponse, SuccessResponse } = require('../error/error_back');
+const path = require('path');
+const fs = require('fs');
 
 const createModel = async (req, res, next) => {
   try {
@@ -76,12 +78,42 @@ const getAllModels = async (req, res, next) => {
   }
 };
 
-const downloadModel = async (req, res) => {
-  const fileName = req.params.filename;
-  const filePath = path.join(__dirname, 'models', fileName);
-  res.download(filePath);
-}
+const downloadModel = (req, res) => {
+	const fileName = req.params.filename;
+	const filePath = path.join(__dirname, '..', 'assets', 'models', fileName);
 
+	fs.access(filePath, fs.constants.F_OK, (err) => {
+		if (err) {
+			return res.status(404).json({ message: 'Файл не найден' });
+		}
+		res.download(filePath, fileName, (err) => {
+			if (err) {
+				console.error('Ошибка при скачивании файла:', err);
+				res.status(500).send('Ошибка при скачивании файла');
+			}
+		});
+	});
+};
+
+const getOtherModelsByAuthor = async (req, res, next) => {
+  try {
+    const { userId, modelId } = req.query;
+    const models = await modelService.getOtherModelsByAuthor(userId, modelId);
+    new SuccessResponse('Модели автора успешно получены').send(res, models);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getOtherModels = async (req, res, next) => {
+  try {
+    const { modelId } = req.query;
+    const models = await modelService.getOtherModels(modelId);
+    new SuccessResponse('Другие модели успешно получены').send(res, models);
+  } catch (error) {
+    next(error);
+  }
+};
 
 module.exports = {
   createModel,
@@ -90,4 +122,6 @@ module.exports = {
   deleteModel,
   getAllModels,
   downloadModel,
+	getOtherModels,
+	getOtherModelsByAuthor,
 };
