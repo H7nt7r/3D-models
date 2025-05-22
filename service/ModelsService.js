@@ -1,4 +1,4 @@
-const modelRepository = require('../repository/ModelsRepository');
+const modelRepository = require("../repository/ModelsRepository");
 
 const createModel = async (modelData) => {
   const model = await modelRepository.createModel(modelData);
@@ -38,6 +38,6 @@ module.exports = {
   updateModel,
   deleteModel,
   getAllModels,
-	getOtherModels,
-	getOtherModelsByAuthor,
+  getOtherModels,
+  getOtherModelsByAuthor,
 };

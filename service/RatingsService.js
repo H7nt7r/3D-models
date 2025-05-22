@@ -1,4 +1,4 @@
-const ratingRepository = require('../repository/RatingsRepository');
+const ratingRepository = require("../repository/RatingsRepository");
 
 const createRating = async (ratingData) => {
   const rating = await ratingRepository.createRating(ratingData);

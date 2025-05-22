@@ -1,9 +1,3 @@
-const { Sequelize } = require('sequelize');
-const sequelize = new Sequelize('3D-models', 'postgres', '1234', {
-  host: 'localhost',
-  dialect: 'postgres'
-});
-
 const User = require('./Users');
 const Model = require('./Models');
 const Favorite = require('./Favorites');
@@ -11,6 +5,7 @@ const Model_user = require('./Models_users');
 const Type = require('./Types');
 const User_type = require('./User_types');
 const Comment = require('./Comments');
+const { sequelize } = require("./connectToBD");
 
 Model.belongsToMany(User, {
   through: Model_user,
@@ -37,7 +32,7 @@ Comment.belongsTo(User, { foreignKey: 'user_id' });
 User.hasMany(Comment, { foreignKey: 'user_id' });
 
 module.exports = {
-  sequelize,
+	sequelize,
   User,
   Model,
   Model_user,

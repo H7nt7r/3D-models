@@ -1,11 +1,8 @@
-const User_Type = require('../models/User_types');
+const User_Type = require("../models/User_types");
 
-const { Sequelize } = require('sequelize');
-
-
-const createUser_Type = async(user_typeData) => {
-	const user_type = await User_Type.create(user_typeData);
-	return user_type;
+const createUser_Type = async (user_typeData) => {
+  const user_type = await User_Type.create(user_typeData);
+  return user_type;
 };
 
 const getUser_TypeById = async (user_typeId) => {

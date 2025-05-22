@@ -1,11 +1,10 @@
-const Model_User = require('../models/Models_Users');
+const Model_User = require("../models/Models_Users");
 
-const { Sequelize } = require('sequelize');
+const { Sequelize } = require("sequelize");
 
-
-const createModel_User = async(model_userData) => {
-	const model_user = await Model_User.create(model_userData);
-	return model_user;
+const createModel_User = async (model_userData) => {
+  const model_user = await Model_User.create(model_userData);
+  return model_user;
 };
 
 const getModel_UserById = async (model_userId) => {

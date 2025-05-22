@@ -1,7 +1,5 @@
 const { sequelize, Model, Favorite, User } = require("../models/relations");
 
-const { Sequelize } = require("sequelize");
-
 const createFavorite = async (favoriteData) => {
   const favorite = await Favorite.create(favoriteData);
   return favorite;

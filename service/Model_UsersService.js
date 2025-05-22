@@ -1,7 +1,9 @@
-const model_userRepository = require('../repository/Model_UsersRepository');
+const model_userRepository = require("../repository/Model_UsersRepository");
 
 const createModel_User = async (model_userData) => {
-  const model_user = await model_userRepository.createModel_User(model_userData);
+  const model_user = await model_userRepository.createModel_User(
+    model_userData
+  );
   return model_user;
 };
 
@@ -11,7 +13,10 @@ const getModel_UserById = async (model_userId) => {
 };
 
 const updateModel_User = async (model_userId, model_userData) => {
-  const model_user = await model_userRepository.updateModel_User(model_userId, model_userData);
+  const model_user = await model_userRepository.updateModel_User(
+    model_userId,
+    model_userData
+  );
   return model_user;
 };
 

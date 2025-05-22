@@ -1,4 +1,4 @@
-const typeRepository = require('../repository/TypesRepository');
+const typeRepository = require("../repository/TypesRepository");
 
 const createType = async (typeData) => {
   const type = await typeRepository.createType(typeData);

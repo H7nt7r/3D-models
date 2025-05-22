@@ -1,11 +1,10 @@
-const Category = require('../models/Categories');
+const Category = require("../models/Categories");
 
-const { Sequelize } = require('sequelize');
+const { Sequelize } = require("sequelize");
 
-
-const createCategory = async(categoryData) => {
-	const category = await Category.create(categoryData);
-	return category;
+const createCategory = async (categoryData) => {
+  const category = await Category.create(categoryData);
+  return category;
 };
 
 const getCategoryById = async (categoryId) => {

@@ -1,4 +1,4 @@
-const userRepository = require('../repository/UsersRepository');
+const userRepository = require("../repository/UsersRepository");
 
 const createUser = async (userData) => {
   const user = await userRepository.createUser(userData);
@@ -34,5 +34,5 @@ module.exports = {
   updateUser,
   deleteUser,
   getAllUsers,
-	getUserProfile,
+  getUserProfile,
 };
