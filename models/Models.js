@@ -42,6 +42,10 @@ const Model = sequelize.define('models', {
 		type: DataTypes.STRING,
 		allowNull: true,
 	},
+	access_to_download: {
+		type: DataTypes.BOOLEAN,
+		allowNull: true,
+	}
 },
 {
   timestamps: false,

@@ -1,4 +1,4 @@
-const Joi = require('joi');
+const Joi = require("joi");
 
 const ModelSchema = Joi.object({
   name: Joi.string().required(),
@@ -6,20 +6,19 @@ const ModelSchema = Joi.object({
   memory: Joi.string().allow(null),
   date: Joi.date().required(),
   category_id: Joi.number().integer().required(),
-  preview: Joi.string().allow(null)
+  preview: Joi.string().allow(null),
+  file_name: Joi.string(),
 });
 
-const validateModel = (ModelSchema) => (req,res,next) => {
-    const {error} = ModelSchema.validate(req.body, {
-        abortEarly: false
-    });
-    if(error){
-        next(error);
-    } else {
-        next();
-    }
-}
-
-
+const validateModel = (ModelSchema) => (req, res, next) => {
+  const { error } = ModelSchema.validate(req.body, {
+    abortEarly: false,
+  });
+  if (error) {
+    next(error);
+  } else {
+    next();
+  }
+};
 
 exports.validateModel = validateModel(ModelSchema);

@@ -60,7 +60,7 @@ router.post("/login", async (req, res) => {
       .status(400)
       .json({
         success: false,
-        message: "Missing login or password",
+        message: "Неверный логин или пароль",
         status: 400,
       });
   }
@@ -73,7 +73,7 @@ router.post("/login", async (req, res) => {
         .status(400)
         .json({
           success: false,
-          message: "Login does not match!",
+          message: "Неверный логин!",
           status: 400,
         });
     }
@@ -84,7 +84,7 @@ router.post("/login", async (req, res) => {
         .status(400)
         .json({
           success: false,
-          message: "Password does not match!",
+          message: "Неверный пароль!",
           status: 400,
         });
     }
@@ -97,7 +97,7 @@ router.post("/login", async (req, res) => {
 
     res.json({
       success: true,
-      message: "Welcome Back!",
+      message: "Добро пожаловать!",
       token: jwtToken,
       status: 200,
     });
@@ -105,7 +105,7 @@ router.post("/login", async (req, res) => {
     console.error("Error: ", err);
     res
       .status(500)
-      .json({ success: false, message: "Server error", status: 500 });
+      .json({ success: false, message: "Ошибка сервера", status: 500 });
   }
 });
 
@@ -117,7 +117,7 @@ router.post("/register", async (req, res) => {
     if (existingUser) {
       return res
         .status(400)
-        .json({ success: false, message: "Login already in use" });
+        .json({ success: false, message: "Логин уже существует" });
     }
 
     const salt = await bcrypt.genSalt(10);
@@ -131,14 +131,14 @@ router.post("/register", async (req, res) => {
     });
 
     await newUser.save();
-    res.json({ success: true, message: "User registered", user: newUser });
+    res.json({ success: true, message: "Пользователь зарегистрирован", user: newUser });
   } catch (error) {
-    console.error("Error registering user:", error);
+    console.error("Ошибка регистрации пользователя:", error);
     res
       .status(400)
       .json({
         success: false,
-        message: "Error registering user",
+        message: "Ошибка регистрации пользователя",
         error: error.message,
       });
   }
