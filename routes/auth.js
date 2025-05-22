@@ -56,37 +56,31 @@ router.post("/login", async (req, res) => {
   const { login, password } = req.body;
 
   if (!login || !password) {
-    return res
-      .status(400)
-      .json({
-        success: false,
-        message: "Неверный логин или пароль",
-        status: 400,
-      });
+    return res.status(400).json({
+      success: false,
+      message: "Неверный логин или пароль",
+      status: 400,
+    });
   }
 
   try {
     const userWithLogin = await User.findOne({ where: { login } });
 
     if (!userWithLogin) {
-      return res
-        .status(400)
-        .json({
-          success: false,
-          message: "Неверный логин!",
-          status: 400,
-        });
+      return res.status(400).json({
+        success: false,
+        message: "Неверный логин!",
+        status: 400,
+      });
     }
 
     const isMatch = await bcrypt.compare(password, userWithLogin.password);
     if (!isMatch) {
-      return res
-        .status(400)
-        .json({
-          success: false,
-          message: "Неверный пароль!",
-          status: 400,
-        });
+      return res.status(400).json({
+        success: false,
+        message: "Неверный пароль!",
+        status: 400,
+      });
     }
 
     const jwtToken = jwt.sign(
@@ -131,16 +125,18 @@ router.post("/register", async (req, res) => {
     });
 
     await newUser.save();
-    res.json({ success: true, message: "Пользователь зарегистрирован", user: newUser });
+    res.json({
+      success: true,
+      message: "Пользователь зарегистрирован",
+      user: newUser,
+    });
   } catch (error) {
     console.error("Ошибка регистрации пользователя:", error);
-    res
-      .status(400)
-      .json({
-        success: false,
-        message: "Ошибка регистрации пользователя",
-        error: error.message,
-      });
+    res.status(400).json({
+      success: false,
+      message: "Ошибка регистрации пользователя",
+      error: error.message,
+    });
   }
 });
 

@@ -1,11 +1,8 @@
-const Type = require('../models/Types');
+const Type = require("../models/Types");
 
-const { Sequelize } = require('sequelize');
-
-
-const createType = async(typeData) => {
-	const type = await Type.create(typeData);
-	return type;
+const createType = async (typeData) => {
+  const type = await Type.create(typeData);
+  return type;
 };
 
 const getTypeById = async (typeId) => {

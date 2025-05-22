@@ -1,4 +1,4 @@
-const categoryRepository = require('../repository/CategoriesRepository');
+const categoryRepository = require("../repository/CategoriesRepository");
 
 const createCategory = async (categoryData) => {
   const category = await categoryRepository.createCategory(categoryData);
@@ -11,7 +11,10 @@ const getCategoryById = async (categoryId) => {
 };
 
 const updateCategory = async (categoryId, categoryData) => {
-  const category = await categoryRepository.updateCategory(categoryId, categoryData);
+  const category = await categoryRepository.updateCategory(
+    categoryId,
+    categoryData
+  );
   return category;
 };
 

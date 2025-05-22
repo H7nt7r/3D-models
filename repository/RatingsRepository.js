@@ -1,8 +1,5 @@
 const Rating = require('../models/Ratings');
 
-const { Sequelize } = require('sequelize');
-
-
 const createRating = async(ratingData) => {
 	const rating = await Rating.create(ratingData);
 	return rating;

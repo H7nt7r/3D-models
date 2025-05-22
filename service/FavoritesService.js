@@ -1,4 +1,4 @@
-const favoriteRepository = require('../repository/FavoritesRepository');
+const favoriteRepository = require("../repository/FavoritesRepository");
 
 const createFavorite = async (favoriteData) => {
   const favorite = await favoriteRepository.createFavorite(favoriteData);
@@ -11,7 +11,10 @@ const getFavoriteById = async (favoriteId) => {
 };
 
 const updateFavorite = async (favoriteId, favoriteData) => {
-  const favorite = await favoriteRepository.updateFavorite(favoriteId, favoriteData);
+  const favorite = await favoriteRepository.updateFavorite(
+    favoriteId,
+    favoriteData
+  );
   return favorite;
 };
 
@@ -35,5 +38,5 @@ module.exports = {
   updateFavorite,
   deleteFavorite,
   getAllFavorites,
-	getFavoritesByUserId,
+  getFavoritesByUserId,
 };
