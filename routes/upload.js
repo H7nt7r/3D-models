@@ -25,7 +25,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-router.post('/upload', authenticate, upload.fields([
+router.post('/upload', upload.fields([
   { name: 'model', maxCount: 1 },
   { name: 'preview', maxCount: 1 },
 ]), async (req, res) => {
