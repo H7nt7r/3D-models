@@ -3,7 +3,7 @@ const User = require("../models/Users");
 const userService = require("../service/UsersService");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-
+const { getUserRole } = require("../error/authenicate");
 const router = express.Router();
 
 const authenticateToken = (req, res, next) => {
@@ -31,7 +31,14 @@ router.get("/me", authenticateToken, async (req, res) => {
       return res.status(404).json({ message: "Пользователь не найден" });
     }
 
-    res.json(user);
+    // Получаем роль пользователя
+    const role = await getUserRole(user.id);
+
+    // Возвращаем пользователя вместе с ролью
+    res.json({
+      ...user.toJSON(),
+      role: role
+    });
   } catch (error) {
     res.status(500).json({ message: "Ошибка сервера" });
   }
@@ -83,8 +90,15 @@ router.post("/login", async (req, res) => {
       });
     }
 
+    // Получаем роль пользователя
+    const userRole = await getUserRole(userWithLogin.id);
+
     const jwtToken = jwt.sign(
-      { id: userWithLogin.id, login: userWithLogin.login },
+      { 
+        id: userWithLogin.id, 
+        login: userWithLogin.login,
+        role: userRole // Добавляем роль в токен
+      },
       "123",
       { expiresIn: "1h" }
     );
@@ -93,6 +107,7 @@ router.post("/login", async (req, res) => {
       success: true,
       message: "Добро пожаловать!",
       token: jwtToken,
+      role: userRole, // Возвращаем роль в ответе
       status: 200,
     });
   } catch (err) {

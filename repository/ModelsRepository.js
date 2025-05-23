@@ -1,4 +1,4 @@
-const { sequelize, Model, User } = require("../models/relations");
+const { sequelize, Model, User, Favorite, Comment, Rating } = require("../models/relations"); // Добавляем Favorite, Comment, Rating
 
 const { Sequelize } = require("sequelize");
 
@@ -39,8 +39,28 @@ const updateModel = async (modelId, modelData) => {
 };
 
 const deleteModel = async (modelId) => {
-  const model = await Model.findByPk(modelId);
-  await model.destroy();
+  const model = await Model.findByPk(modelId, {
+    include: [Favorite, Comment, Rating] // Включаем связанные модели
+  });
+  if (model) {
+    // Удаляем связанные избранные записи
+    await model.getFavorites().then(favorites => {
+      return Promise.all(favorites.map(favorite => favorite.destroy()));
+    });
+
+    // Удаляем связанные комментарии
+    await model.getComments().then(comments => {
+      return Promise.all(comments.map(comment => comment.destroy()));
+    });
+
+    // Удаляем связанные рейтинги
+    await model.getRatings().then(ratings => {
+      return Promise.all(ratings.map(rating => rating.destroy()));
+    });
+
+    // Удаляем саму модель
+    await model.destroy();
+  }
 };
 
 const getAllModels = async () => {

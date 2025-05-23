@@ -48,4 +48,7 @@ function authenticate(req, res, next) {
   )(req, res, next);
 }
 
-module.exports = authenticate;
+module.exports = {
+  authenticate,
+  getUserRole
+};
