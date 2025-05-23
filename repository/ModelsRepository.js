@@ -129,6 +129,27 @@ const getOtherModels = async (excludeModelId) => {
   return models;
 };
 
+const getTopRatedModels = async (limit = 6) => {
+  const averageRatingLiteral = `(SELECT AVG(r.rating) FROM ratings AS r WHERE r.model_id = models.id)`;
+
+  const models = await Model.findAll({
+    include: [
+      {
+        model: User,
+        attributes: ["id", "nickname"],
+        through: { attributes: [] },
+      },
+    ],
+    attributes: {
+      include: [[sequelize.literal(averageRatingLiteral), "averageRating"]],
+    },
+    order: [[sequelize.literal(`${averageRatingLiteral} DESC NULLS LAST`)]],
+    limit,
+  });
+
+  return models;
+};
+
 module.exports = {
   createModel,
   getModelById,
@@ -137,4 +158,5 @@ module.exports = {
   getAllModels,
   getOtherModels,
   getOtherModelsByAuthor,
+  getTopRatedModels,
 };

@@ -33,7 +33,7 @@ router.post(
   ]),
   async (req, res) => {
     try {
-      const { name, description, sizes, category_id, user_id } = req.body;
+      const { name, description, sizes, category_id, user_id, access_to_download } = req.body;
       const modelFile = req.files["model"]?.[0];
       const previewFile = req.files["preview"]?.[0];
 
@@ -53,6 +53,7 @@ router.post(
         category_id,
         preview: previewFile ? previewFile.filename : null,
         file_name: modelFile.filename,
+				access_to_download,
       });
 
       await Model_user.create({
