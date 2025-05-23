@@ -7,6 +7,7 @@ const { validateModel } = require("../middle/modelShema");
 router.post("/", validateModel, modelsController.createModel);
 router.get("/related/by-author", modelsController.getOtherModelsByAuthor);
 router.get("/related/others", modelsController.getOtherModels);
+router.get("/top-rated", modelsController.getTopRatedModels);
 router.get("/:id", modelsController.getModelById);
 router.put("/:id", validateModel, modelsController.updateModel);
 router.delete("/:id", modelsController.deleteModel);

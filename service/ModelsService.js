@@ -32,6 +32,10 @@ const getOtherModels = async (excludeModelId) => {
   return await modelRepository.getOtherModels(excludeModelId);
 };
 
+const getTopRatedModels = async () => {
+  return await modelRepository.getTopRatedModels();
+};
+
 module.exports = {
   createModel,
   getModelById,
@@ -40,4 +44,5 @@ module.exports = {
   getAllModels,
   getOtherModels,
   getOtherModelsByAuthor,
+  getTopRatedModels,
 };
