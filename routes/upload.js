@@ -3,6 +3,8 @@ const multer = require("multer");
 const path = require("path");
 const Model = require("../models/Models");
 const Model_user = require("../models/Models_users");
+const Model_Category = require("../models/Model_Category");
+const { sequelize } = require("../models/connectToBD");
 const authenticate = require("../error/authenicate");
 
 const router = express.Router();
@@ -32,8 +34,9 @@ router.post(
     { name: "preview", maxCount: 1 },
   ]),
   async (req, res) => {
+    const transaction = await sequelize.transaction();
     try {
-      const { name, description, sizes, category_id, user_id, access_to_download } = req.body;
+      const { name, description, sizes, user_id, access_to_download, categories } = req.body;
       const modelFile = req.files["model"]?.[0];
       const previewFile = req.files["preview"]?.[0];
 
@@ -50,21 +53,34 @@ router.post(
         sizes,
         memory,
         date,
-        category_id,
         preview: previewFile ? previewFile.filename : null,
         file_name: modelFile.filename,
-				access_to_download,
-      });
+        access_to_download,
+      }, { transaction });
 
       await Model_user.create({
         user_id: parseInt(user_id, 10),
         model_id: newModel.id,
-      });
+      }, { transaction });
+
+      if (categories) {
+        const categoryIds = JSON.parse(categories);
+        if (Array.isArray(categoryIds) && categoryIds.length > 0) {
+          const categoryRecords = categoryIds.map(category_id => ({
+            model_id: newModel.id,
+            category_id: parseInt(category_id, 10)
+          }));
+          await Model_Category.bulkCreate(categoryRecords, { transaction });
+        }
+      }
+
+      await transaction.commit();
 
       res
         .status(201)
         .json({ message: "Model uploaded successfully.", model: newModel });
     } catch (error) {
+      await transaction.rollback();
       console.error("Error uploading model:", error);
       res.status(500).json({ message: "Internal server error." });
     }

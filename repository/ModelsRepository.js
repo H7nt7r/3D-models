@@ -1,4 +1,13 @@
-const { sequelize, Model, User, Favorite, Comment, Rating } = require("../models/relations"); // Добавляем Favorite, Comment, Rating
+const {
+  sequelize,
+  Model,
+  User,
+  Favorite,
+  Comment,
+  Rating,
+  Category,
+  Model_Category
+} = require("../models/relations");
 
 const { Sequelize } = require("sequelize");
 
@@ -13,6 +22,10 @@ const getModelById = async (modelId) => {
       {
         model: User,
         attributes: ["id", "nickname"],
+        through: { attributes: [] },
+      },
+      {
+        model: Category,
         through: { attributes: [] },
       },
     ],
@@ -39,27 +52,35 @@ const updateModel = async (modelId, modelData) => {
 };
 
 const deleteModel = async (modelId) => {
-  const model = await Model.findByPk(modelId, {
-    include: [Favorite, Comment, Rating] // Включаем связанные модели
-  });
-  if (model) {
-    // Удаляем связанные избранные записи
-    await model.getFavorites().then(favorites => {
-      return Promise.all(favorites.map(favorite => favorite.destroy()));
+  const transaction = await sequelize.transaction();
+  try {
+    const model = await Model.findByPk(modelId, {
+      include: [Favorite, Comment, Rating],
+      transaction,
     });
 
-    // Удаляем связанные комментарии
-    await model.getComments().then(comments => {
-      return Promise.all(comments.map(comment => comment.destroy()));
-    });
+    if (model) {
+      // Удаляем связи с категориями
+      await Model_Category.destroy({
+        where: { model_id: modelId },
+        transaction,
+      });
 
-    // Удаляем связанные рейтинги
-    await model.getRatings().then(ratings => {
-      return Promise.all(ratings.map(rating => rating.destroy()));
-    });
+      // Удаляем связанные записи
+      await Promise.all([
+        Favorite.destroy({ where: { model_id: modelId }, transaction }),
+        Comment.destroy({ where: { model_id: modelId }, transaction }),
+        Rating.destroy({ where: { model_id: modelId }, transaction }),
+      ]);
 
-    // Удаляем саму модель
-    await model.destroy();
+      // Удаляем саму модель
+      await model.destroy({ transaction });
+    }
+
+    await transaction.commit();
+  } catch (error) {
+    await transaction.rollback();
+    throw error;
   }
 };
 
@@ -69,6 +90,10 @@ const getAllModels = async () => {
       {
         model: User,
         attributes: ["id", "nickname"],
+        through: { attributes: [] },
+      },
+      {
+        model: Category,
         through: { attributes: [] },
       },
     ],
