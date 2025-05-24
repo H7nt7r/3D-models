@@ -25,14 +25,6 @@ const Model = sequelize.define(
       type: DataTypes.DATE,
       allowNull: false,
     },
-    category_id: {
-      type: DataTypes.BIGINT,
-      allowNull: false,
-      references: {
-        model: "categories",
-        key: "id",
-      },
-    },
     preview: {
       type: DataTypes.STRING,
       allowNull: true,
