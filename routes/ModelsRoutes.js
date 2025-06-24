@@ -1,17 +1,17 @@
 const express = require("express");
 const router = express.Router();
 const modelsController = require("../controllers/modelController");
-const authenicate = require("../error/authenicate");
+const { authenticate } = require("../error/authenicate");
 const { validateModel } = require("../middle/modelShema");
 
-router.post("/", validateModel, modelsController.createModel);
-router.get("/related/by-author", modelsController.getOtherModelsByAuthor);
-router.get("/related/others", modelsController.getOtherModels);
-router.get("/top-rated", modelsController.getTopRatedModels);
-router.get("/:id", modelsController.getModelById);
+router.post("/", authenticate, validateModel, modelsController.createModel);
+router.get("/related/by-author",authenticate, modelsController.getOtherModelsByAuthor);
+router.get("/related/others",authenticate, modelsController.getOtherModels);
+router.get("/top-rated",authenticate, modelsController.getTopRatedModels);
+router.get("/:id",authenticate, modelsController.getModelById);
 router.put("/:id", validateModel, modelsController.updateModel);
 router.delete("/:id", modelsController.deleteModel);
-router.get("/", modelsController.getAllModels);
+router.get("/",authenticate, modelsController.getAllModels);
 router.get("/download/:filename", modelsController.downloadModel);
 
 module.exports = router;

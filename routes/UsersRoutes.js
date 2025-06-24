@@ -1,11 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const usersController = require("../controllers/userController");
-const { authenticate } = require("../error/authenicate"); // Используем деструктуризацию
+const { authenticate } = require("../error/authenicate");
 const { validateUser, validateUserUpdate } = require("../middle/userShema");
 
-//router.get('/info', usersController.getUserFromToken);
-router.get("/", usersController.getAllUsers);
+router.get("/", authenticate, usersController.getAllUsers);
 router.post("/", validateUser, usersController.createUser);
 router.get("/profile", authenticate, usersController.getUserProfile);
 router.put(
@@ -14,8 +13,8 @@ router.put(
   validateUserUpdate,
   usersController.updateOwnProfile
 );
-router.get("/:id", usersController.getUserById);
-router.put("/:id", validateUser, usersController.updateUser);
-router.delete("/:id", usersController.deleteUser);
+router.get("/:id",authenticate, usersController.getUserById);
+router.put("/:id",authenticate, validateUser, usersController.updateUser);
+router.delete("/:id", authenticate, usersController.deleteUser);
 
 module.exports = router;

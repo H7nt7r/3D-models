@@ -39,9 +39,6 @@ function authenticate(req, res, next) {
           .json({ code: 404, message: "Can't authorize", status: false });
       }
 
-      //const role = await getUserRole(user.id);
-
-      //if (role !== 'Admin') { return res.status(403).json({code: 403, message: 'Only admins can access this page' ,status:false}); }
       req.user = user;
       next();
     }

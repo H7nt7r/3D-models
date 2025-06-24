@@ -115,6 +115,221 @@
         }
       }
     },
+    "/models/top-rated": {
+  "get": {
+    "tags": ["Models"],
+    "summary": "Получение топ-6 моделей по рейтингу",
+    "description": "Возвращает список из 6 моделей с наивысшим средним рейтингом, отсортированных по убыванию. Используется для отображения лучших моделей.",
+    "responses": {
+      "200": {
+        "description": "Успешный ответ",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/Model"
+              }
+            }
+          }
+        }
+      },
+      "500": {
+        "description": "Ошибка сервера"
+      }
+    }
+  }
+},
+"/models/related/by-author": {
+  "get": {
+    "tags": ["Models"],
+    "summary": "Получение других моделей от того же автора",
+    "description": "Возвращает до 4 моделей, загруженных тем же автором, исключая одну указанную модель. Используется, например, на странице модели для отображения похожих работ автора.",
+    "parameters": [
+      {
+        "name": "userId",
+        "in": "path",
+        "required": true,
+        "description": "ID пользователя (автора)",
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "excludeModelId",
+        "in": "query",
+        "required": false,
+        "description": "ID модели, которую нужно исключить из результатов",
+        "schema": {
+          "type": "integer"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Список других моделей от автора",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/Model"
+              }
+            }
+          }
+        }
+      },
+      "404": {
+        "description": "Автор или модели не найдены"
+      },
+      "500": {
+        "description": "Ошибка сервера"
+      }
+    }
+  }
+},
+"/api/upload": {
+  "post": {
+    "summary": "Загрузить 3D модель и изображение превью",
+    "description": "Позволяет загрузить файл 3D-модели и превью изображения вместе с описанием, категорией и ID пользователя.",
+    "consumes": ["multipart/form-data"],
+    "parameters": [
+      {
+        "name": "model",
+        "in": "formData",
+        "type": "file",
+        "required": true,
+        "description": "Файл 3D модели (.obj, .fbx и др.)"
+      },
+      {
+        "name": "preview",
+        "in": "formData",
+        "type": "file",
+        "required": false,
+        "description": "Изображение превью модели (.png, .jpg)"
+      },
+      {
+        "name": "name",
+        "in": "formData",
+        "type": "string",
+        "required": true,
+        "description": "Название модели"
+      },
+      {
+        "name": "description",
+        "in": "formData",
+        "type": "string",
+        "required": false,
+        "description": "Описание модели"
+      },
+      {
+        "name": "sizes",
+        "in": "formData",
+        "type": "string",
+        "required": false,
+        "description": "Размер модели (например: '10x10x20')"
+      },
+      {
+        "name": "category_id",
+        "in": "formData",
+        "type": "integer",
+        "required": true,
+        "description": "ID категории модели"
+      },
+      {
+        "name": "user_id",
+        "in": "formData",
+        "type": "integer",
+        "required": true,
+        "description": "ID пользователя, загружающего модель"
+      }
+    ],
+    "responses": {
+      "201": {
+        "description": "Модель успешно загружена",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "message": {
+              "type": "string"
+            },
+            "model": {
+              "$ref": "#/definitions/Model"
+            }
+          }
+        }
+      },
+      "400": {
+        "description": "Ошибка: отсутствует файл модели"
+      },
+      "500": {
+        "description": "Ошибка сервера"
+      }
+    }
+  }
+},
+"/models/download/{filename}": {
+  "get": {
+    "summary": "Скачать 3D модель по имени файла",
+    "parameters": [
+      {
+        "name": "filename",
+        "in": "path",
+        "required": true,
+        "type": "string",
+        "description": "Имя файла для скачивания"
+      }
+    ],
+    "produces": ["application/octet-stream"],
+    "responses": {
+      "200": {
+        "description": "Файл успешно скачан"
+      },
+      "404": {
+        "description": "Файл не найден"
+      }
+    }
+  }
+},
+"/models/by-author": {
+  "get": {
+    "summary": "Получить модели того же автора (кроме текущей)",
+    "description": "Возвращает список моделей, созданных тем же автором, кроме указанной модели.",
+    "parameters": [
+      {
+        "name": "userId",
+        "in": "query",
+        "required": true,
+        "type": "integer",
+        "description": "ID пользователя (автора модели)"
+      },
+      {
+        "name": "modelId",
+        "in": "query",
+        "required": true,
+        "type": "integer",
+        "description": "ID модели, которую нужно исключить из списка"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Модели автора успешно получены",
+        "schema": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Model"
+          }
+        }
+      },
+      "400": {
+        "description": "Неверные параметры"
+      },
+      "500": {
+        "description": "Ошибка сервера"
+      }
+    }
+  }
+},
     "/users": {
       "get": {
         "summary": "Get all users",
@@ -1435,6 +1650,9 @@
           },
           "file_name": {
             "type": "string"
+          },
+          "access_to_download":{
+            "type": "boolean"
           }
         }
       },

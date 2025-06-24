@@ -31,10 +31,8 @@ router.get("/me", authenticateToken, async (req, res) => {
       return res.status(404).json({ message: "Пользователь не найден" });
     }
 
-    // Получаем роль пользователя
     const role = await getUserRole(user.id);
 
-    // Возвращаем пользователя вместе с ролью
     res.json({
       ...user.toJSON(),
       role: role
@@ -97,7 +95,7 @@ router.post("/login", async (req, res) => {
       { 
         id: userWithLogin.id, 
         login: userWithLogin.login,
-        role: userRole // Добавляем роль в токен
+        role: userRole 
       },
       "123",
       { expiresIn: "1h" }
@@ -107,7 +105,7 @@ router.post("/login", async (req, res) => {
       success: true,
       message: "Добро пожаловать!",
       token: jwtToken,
-      role: userRole, // Возвращаем роль в ответе
+      role: userRole,
       status: 200,
     });
   } catch (err) {
